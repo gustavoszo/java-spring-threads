@@ -12,6 +12,7 @@ import java.util.List;
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     List<Pedido> findPedidoByData(LocalDate now);
+
     @Query("""
             SELECT SUM(i.precoUnitario * i.quantidade)
             FROM Pedido p
@@ -19,6 +20,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             WHERE p.data = :data
             """)
     BigDecimal faturamentoTotalDoDia(LocalDate data);
+
     @Query("""
         SELECT NEW br.com.alura.adopetstore.dto.EstatisticasVenda(
             prod.categoria,
